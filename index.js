@@ -28,6 +28,18 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    //2.
+    const productCollection = client.db("productDB").collection("products");
+
+    //1.ami akon client site theke data nibo post req diye
+    app.post('/products', async(req, res) => {
+      const newProducts = req.body;
+      console.log(newProducts);
+       const result = await productCollection.insertOne(newProducts);
+       res.send(result);
+    })
+
+
 
 
     // Send a ping to confirm a successful connection
