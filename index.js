@@ -30,6 +30,16 @@ async function run() {
 
     //2.
     const productCollection = client.db("productDB").collection("products");
+    const brandCollection = client.db("productDB").collection("brands");
+
+    //home page e brands gula db theke client e read korate cai
+    app.get('/brands', async(req, res) => {
+      const cursor = brandCollection.find();
+      const brands = await cursor.toArray();
+      res.send(brands);
+    })
+
+
 
     //1.ami akon client site theke data nibo post req diye
     app.post('/products', async(req, res) => {
