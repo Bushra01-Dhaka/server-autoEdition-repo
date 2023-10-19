@@ -49,6 +49,13 @@ async function run() {
        res.send(result);
     })
 
+    // 3. get korbo
+    app.get('/products', async(req, res) => {
+      const cursor = productCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+
 
 
 
