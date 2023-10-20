@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require('dotenv').config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -39,8 +39,15 @@ async function run() {
       res.send(brands);
     })
 
+    //5.
+    app.get('/brands/:brandName', async(req, res) => {
+      const brandName = req.params.brandName;
+      const query = {brand_name: (brandName)};
+      const result = await brandCollection.findOne(query);
+      res.send(result);
+    })
 
-
+   
     //1.ami akon client site theke data nibo post req diye
     app.post('/products', async(req, res) => {
       const newProducts = req.body;
@@ -56,6 +63,17 @@ async function run() {
       res.send(result);
     })
 
+    //4. 
+    app.get('/products/:id', async(req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await productCollection.findOne(query);
+      res.send(result);
+    })
+
+    
+
+   
 
 
 
