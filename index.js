@@ -31,6 +31,7 @@ async function run() {
     //2.
     const productCollection = client.db("productDB").collection("products");
     const brandCollection = client.db("productDB").collection("brands");
+    const cartCollection = client.db("productDB").collection("carts");
 
     //home page e brands gula db theke client e read korate cai
     app.get('/brands', async(req, res) => {
@@ -56,6 +57,14 @@ async function run() {
        res.send(result);
     })
 
+    // 7 carts api created
+    app.post('/carts', async(req, res) => {
+      const newCart = req.body;
+      console.log(newCart);
+      const result = await cartCollection.insertOne(newCart);
+      res.send(result);
+    })
+
     // 3. get korbo
     app.get('/products', async(req, res) => {
       const cursor = productCollection.find();
@@ -71,7 +80,7 @@ async function run() {
       res.send(result);
     })
 
-    // 5. updating
+    // 6. updating
 
     app.put('/products/:id', async(req,res) => {
       const id = req.params.id;
